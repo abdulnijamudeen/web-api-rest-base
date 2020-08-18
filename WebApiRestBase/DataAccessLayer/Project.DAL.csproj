@@ -66,6 +66,8 @@
       <DependentUpon>AppDbContext.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Repository\UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="EF\AppDbContext.edmx">
@@ -91,6 +93,7 @@
       <DependentUpon>AppDbContext.edmx</DependentUpon>
       <LastGenOutput>AppDbContext.cs</LastGenOutput>
     </Content>
+    <Content Include="Migration\V1__CreateDbSchema.sql" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
