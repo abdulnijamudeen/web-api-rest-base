@@ -15,7 +15,7 @@ namespace ServiceLayer.Service.User
         }
 
         public DataAccessLayer.EF.User GetUserByUsername(string username) 
-            => unitOfWork.UserRepository.Get().AsQueryable().FirstOrDefault(u => u.Username.Equals(username));
+            => unitOfWork.UserRepository.Get().AsQueryable().FirstOrDefault(u => u.Username.Equals(username, StringComparison.CurrentCultureIgnoreCase));
 
         protected virtual void Dispose(bool disposing)
         {
