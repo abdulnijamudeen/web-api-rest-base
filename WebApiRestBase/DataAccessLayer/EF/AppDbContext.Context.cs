@@ -25,5 +25,6 @@ namespace DataAccessLayer.EF
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<User> Users { get; set; }
     }
 }

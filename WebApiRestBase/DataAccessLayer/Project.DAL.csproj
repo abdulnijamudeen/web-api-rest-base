@@ -65,6 +65,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppDbContext.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EF\User.cs">
+      <DependentUpon>AppDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Repository\UnitOfWork.cs" />
