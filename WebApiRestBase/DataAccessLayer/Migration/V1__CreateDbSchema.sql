@@ -6,7 +6,7 @@ BEGIN
     Id int IDENTITY(1,1) PRIMARY KEY NOT NULL,
     [Name] nvarchar(50) NOT NULL,
     Username nvarchar(50) NOT NULL,
-    PasswordHash nvarchar(50) NOT NULL,
+    PasswordHash nvarchar(200) NOT NULL,
     [Role] nvarchar(30)
     );
   PRINT 'User Table Created'

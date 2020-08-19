@@ -1,14 +1,10 @@
-﻿using DataAccessLayer.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ServiceLayer.Form;
 
 namespace ServiceLayer.Service.User
 {
-    interface IUserService
+    public interface IUserService
     {
         DataAccessLayer.EF.User GetUserByUsername(string username);
+        DataAccessLayer.EF.User AddUser(SignUp signUp);
     }
 }
