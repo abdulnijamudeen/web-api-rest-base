@@ -1,8 +1,10 @@
 ﻿using ServiceLayer.Form;
+using ServiceLayer.Mapper;
 using ServiceLayer.Service.User;
 using System.Net.Http;
 using System.Web.Helpers;
 using System.Web.Http;
+using WebApiRestBase.Security;
 
 namespace WebApiRestBase.Controllers
 {
@@ -31,14 +33,16 @@ namespace WebApiRestBase.Controllers
         [HttpPost]
         public IHttpActionResult Login([FromBody]Login login)
         {
+            //TODO: Log4j logging implementaion
             var existingUser = userService.GetUserByUsername(login.Username);
             if (existingUser == null)
                 return Unauthorized();
             var isAuthenticated = Crypto.VerifyHashedPassword(existingUser.PasswordHash, login.Password);
             if (!isAuthenticated)
                 return Unauthorized();
-            //TODO : JWT Token Generator
-            return Ok(new { existingUser.Id, existingUser.Name, existingUser.Username, existingUser.Role }); // Refactor to Object
+            var token = JwtUtility.CreateToken(existingUser);
+            var user = AuthMapper.LoginMap(existingUser, token);
+            return Ok(user); 
         }
     }
 }

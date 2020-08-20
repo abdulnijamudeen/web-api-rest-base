@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Owin.Security.OAuth;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -13,6 +14,11 @@ namespace WebApiRestBase
             // Web API configuration and services
             var cors = new EnableCorsAttribute("*", "*", "*"); // TODO : change origins
             config.EnableCors(cors);
+
+            // JWT AuthenticationFilter
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
             // Web API routes
             config.MapHttpAttributeRoutes();
 
