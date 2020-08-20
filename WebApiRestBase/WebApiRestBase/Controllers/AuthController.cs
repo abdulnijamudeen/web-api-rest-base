@@ -1,6 +1,7 @@
 ﻿using ServiceLayer.Form;
 using ServiceLayer.Service.User;
 using System.Net.Http;
+using System.Web.Helpers;
 using System.Web.Http;
 
 namespace WebApiRestBase.Controllers
@@ -19,9 +20,25 @@ namespace WebApiRestBase.Controllers
         [HttpPost]
         public IHttpActionResult SignUp([FromBody]SignUp signUp)
         {
-            var user = userService.AddUser(signUp); //TODO: Refactor Response
-            var response = new { user.Id, user.Name, user.Username, user.Role };
-            return Ok(response);
+            var existingUser = userService.GetUserByUsername(signUp.Username);
+            if (existingUser != null)
+                return Ok("User already exist");
+            userService.AddUser(signUp);
+            return Ok("User created successfully");
+        }
+
+        [Route("login")]
+        [HttpPost]
+        public IHttpActionResult Login([FromBody]Login login)
+        {
+            var existingUser = userService.GetUserByUsername(login.Username);
+            if (existingUser == null)
+                return Unauthorized();
+            var isAuthenticated = Crypto.VerifyHashedPassword(existingUser.PasswordHash, login.Password);
+            if (!isAuthenticated)
+                return Unauthorized();
+            //TODO : JWT Token Generator
+            return Ok(new { existingUser.Id, existingUser.Name, existingUser.Username, existingUser.Role }); // Refactor to Object
         }
     }
 }

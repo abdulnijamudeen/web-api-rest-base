@@ -11,7 +11,7 @@ namespace WebApiRestBase
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
+            var cors = new EnableCorsAttribute("*", "*", "*"); // TODO : change origins
             config.EnableCors(cors);
             // Web API routes
             config.MapHttpAttributeRoutes();

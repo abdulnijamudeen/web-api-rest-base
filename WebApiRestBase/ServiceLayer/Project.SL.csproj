@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form\Login.cs" />
     <Compile Include="Form\SignUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\User\IUserService.cs" />

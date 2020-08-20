@@ -23,20 +23,15 @@ namespace ServiceLayer.Service.User
 
         public DataAccessLayer.EF.User AddUser(SignUp signUp)
         {
-            var existingUser = GetUserByUsername(signUp.Username);
-            if (existingUser == null)
-            {
-                var user = new DataAccessLayer.EF.User();
-                user.Name = signUp.Name;
-                user.Username = signUp.Username;
-                user.PasswordHash = Crypto.HashPassword(signUp.Password); //TODO: var verified = Crypto.VerifyHashedPassword(hash, "foo");
-                user.Role = signUp.Role; // TODO: Chech with Enum
-
-                unitOfWork.UserRepository.Insert(user);
-                unitOfWork.Save();
-                return user;
-            }
-            throw new InvalidCredentialException("User Not Found"); // TODO: Handle Exception
+            var user = new DataAccessLayer.EF.User();
+            user.Name = signUp.Name;
+            user.Username = signUp.Username;
+            user.PasswordHash = Crypto.HashPassword(signUp.Password);
+            user.Role = signUp.Role; // TODO: Chech with Enum
+            
+            unitOfWork.UserRepository.Insert(user);
+            unitOfWork.Save();
+            return user;
         }
 
         protected virtual void Dispose(bool disposing)
@@ -45,17 +40,17 @@ namespace ServiceLayer.Service.User
             {
                 if (disposing)
                 {
-                    // TODO: dispose managed state (managed objects)
+                    // dispose managed state (managed objects)
                     unitOfWork.Dispose();
                 }
 
-                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
-                // TODO: set large fields to null
+                // free unmanaged resources (unmanaged objects) and override finalizer
+                //set large fields to null
                 disposedValue = true;
             }
         }
 
-        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        // //override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
         // ~UserService()
         // {
         //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
