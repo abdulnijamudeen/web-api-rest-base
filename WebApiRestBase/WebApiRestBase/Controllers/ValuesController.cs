@@ -1,29 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using ServiceLayer.Form;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Http;
 using WebApiRestBase.Security;
+using WebApiRestBase.Utility;
 
 namespace WebApiRestBase.Controllers
 {
     public class ValuesController : ApiController
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         // GET api/values
-        [Authorize(Roles = "Administrator,User")]
         public IEnumerable<string> Get()
         {
+            // Ref: https://stackify.com/log4net-guide-dotnet-logging/
+            log.Info("Hello logging world!");
             return new string[] { "value1", "value2" };
         }
 
         // GET api/values/5
         [Authorize(Roles = "Administrator,User")]
-        public string Get(int id)
+        public UserDetailsClaim Get(int id)
         {
-            // TODO: Make this as a Util
-            var identity = User.Identity as ClaimsIdentity;
-            IEnumerable<Claim> claims = identity.Claims;
-            var userDetails = claims.Where(p => p.Type == JwtUtility.USER_DETAILS_CLAIM).FirstOrDefault()?.Value;
-            return userDetails;
+            return AppUtility.GetCurrentUserDetails();
         }
 
         // POST api/values

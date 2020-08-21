@@ -18,8 +18,8 @@ namespace WebApiRestBase.Security
         //public static string TokenAudience = WebConfigurationManager.AppSettings["TokenAudience"];
 
         public static string SigningKey = "SigningKey this is my custom Secret key for authnetication";
-        public static string TokenIssuer = "http://localhost:51281";
-        public static string TokenAudience = "http://localhost:51281";
+        public static string TokenIssuer = "https://localhost:44353";
+        public static string TokenAudience = "https://localhost:44353";
         public static string TokenLifetimeInMinutes = "30";
 
         public static SecurityKey SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SigningKey));
